@@ -13,7 +13,7 @@ runs:
         echo "::warning ecspresso@v1 is deprecated. Please use ecspresso@v2 action."
         VERSION="${{ inputs.version }}"
         if [ "${VERSION}" = "latest" ]; then
-          $VERSION=v1.7.15
+          VERSION=v1.7.15
           echo "::notice Using fixed latest v1 version: ${VERSION}"
         fi
         DOWNLOAD_URL=https://github.com/kayac/ecspresso/releases/download/${VERSION}/ecspresso_${VERSION:1}_linux_amd64.tar.gz
