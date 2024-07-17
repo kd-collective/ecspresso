@@ -10,12 +10,13 @@ runs:
       working-directory: /tmp
       run: |
         set -e
+        echo "::warning ecspresso@v1 is deprecated. Please use ecspresso@v2 action."
         VERSION="${{ inputs.version }}"
         if [ "${VERSION}" = "latest" ]; then
-          DOWNLOAD_URL=$(curl -sS 'https://api.github.com/repos/kayac/ecspresso/releases?per_page=100' | jq -r '[.[]|select(.tag_name < "v1.99")|select(.prerelease == false)][0].assets[].browser_download_url|select(match("linux.amd64."))')
-        else
-          DOWNLOAD_URL=https://github.com/kayac/ecspresso/releases/download/${VERSION}/ecspresso_${VERSION:1}_linux_amd64.tar.gz
+          $VERSION=v1.7.15
+          echo "::notice Using fixed latest v1 version: ${VERSION}"
         fi
+        DOWNLOAD_URL=https://github.com/kayac/ecspresso/releases/download/${VERSION}/ecspresso_${VERSION:1}_linux_amd64.tar.gz
         cd /tmp
         curl -sfLO ${DOWNLOAD_URL}
         if [[ "${DOWNLOAD_URL}" =~ \.tar\.gz$ ]]; then
